@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            /* border: 1px solid #ccc; */
+            text-align: center;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .menu {
+            width: 70px;
+            height: 70px;
+            background-color: gold;
+            border-radius: 50%;
+            line-height: 70px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all .4s;
+        }
+
+        .box ul {
+            width: 100%;
+            height: 100%;
+            /* background-color: pink; */
+        }
+
+        .box ul li {
+            width: 80px;
+            height: 80px;
+            background-color: skyblue;
+            border-radius: 50%;
+            line-height: 80px;
+            list-style: none;
+            position: absolute;
+            transform: scale(0);
+            transition: all .4s;
+            cursor: pointer;
+        }
+
+        .box ul li:nth-of-type(1) {}
+
+        .box ul li:nth-of-type(2) {
+            right: 0;
+        }
+
+        .box ul li:nth-of-type(3) {
+            bottom: 0;
+        }
+
+        .box ul li:nth-of-type(4) {
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="menu">
+            菜单
+        </div>
+
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <script>
+        let oMenu = document.querySelector('.menu')
+        let oLis = document.querySelectorAll('li')
+        oMenu.onclick = () => {
+            oMenu.style.transform = "translate(-50%, -50%) scale(0)"
+            oLis.forEach(item => {
+                item.style.transform = "scale(1)"
+            })
+        }
+    </script>
+</body>
+
+</html>
