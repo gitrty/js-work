@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body {
+            font-family: "Microsoft YaHei", serif;
+        }
+
+        body,
+        dl,
+        dd,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+        }
+
+        ol,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        img {
+            border: none;
+        }
+
+        #wrap {
+            width: 879px;
+            height: 550px;
+            margin: 50px auto 0;
+            padding: 40px;
+            border: 1px solid #bbb;
+            user-select: none;
+        }
+
+        #content {
+            overflow: hidden;
+            width: 100%;
+            height: 500px;
+        }
+
+        #content ul {
+            width: 900px;
+            height: 100%;
+        }
+
+        #content ul li {
+            position: relative;
+            float: left;
+            width: 210px;
+            height: 240px;
+            margin-right: 13px;
+            margin-bottom: 20px;
+        }
+
+        #content ul li img {
+            display: block;
+        }
+
+        #content ul li p {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+        }
+
+        #content ul li span {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background: url("img/price.png");
+            font-size: 14px;
+            line-height: 50px;
+            font-style: italic;
+            color: #fff;
+        }
+
+        #btn {
+            margin-top: 20px;
+        }
+
+        #btn span {
+            display: inline-block;
+            height: 30px;
+            padding: 6px 20px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 12px;
+            background-color: #f60;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+
+        <div id="content">
+            <ul>
+                <!-- <li>
+                    <img src="img/xh_img1.jpg" width="210" height="210" alt="">
+                    <p>深红色经典玫瑰</p>
+                    <span>￥<b>99</b></span>
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li> -->
+            </ul>
+        </div>
+
+        <div id="btn">
+            <span style="margin-left: 600px">随机排序</span>
+            <span>从低到高</span>
+            <span>从高到低</span>
+        </div>
+
+    </div>
+
+    <script>
+        // 模拟后台数据
+        let shopInfo = [
+            {
+                src: "./img/xh_img1.jpg",
+                dec: "深红色经典玫瑰",
+                price: 100
+            },
+            {
+                src: "./img/xh_img2.jpg",
+                dec: "甜美七分袖荷叶边条纹设",
+                price: 97
+            },
+            {
+                src: "./img/xh_img3.jpg",
+                dec: "甜美七分袖荷叶边条纹设",
+                price: 99.5
+            },
+            {
+                src: "./img/xh_img4.jpg",
+                dec: "甜美七分袖荷叶边条纹设",
+                price: 215
+            },
+            {
+                src: "./img/xh_img5.jpg",
+                dec: "经典红色我的最爱",
+                price: 130
+            },
+            {
+                src: "./img/xh_img6.jpg",
+                dec: "清淡优雅百年百合",
+                price: 300
+            },
+            {
+                src: "./img/xh_img7.jpg",
+                dec: "紫色冷艳系列",
+                price: 700
+            },
+            {
+                src: "./img/xh_img8.jpg",
+                dec: "粉色浪漫系列玫瑰",
+                price: 500
+            }
+        ]
+
+        let oUl = document.querySelector('#content>ul')
+
+        // 将获取到的数据循环到页面中
+        function $mount() {
+            for (var i = 0; i < shopInfo.length; i++) {
+                var newLi = document.createElement('li')
+                newLi.innerHTML = `
+                <img src=${shopInfo[i].src} width="210" height="210" alt="">
+                <p>${shopInfo[i].dec}</p>
+                <span>￥<b>${shopInfo[i].price}</b></span>`
+
+                oUl.appendChild(newLi)
+            }
+        }
+        $mount()
+
+
+        let btn = document.querySelectorAll("#btn>span")
+        let randomSort = btn[0]
+        let minMax = btn[1]
+        let maxMin = btn[2]
+
+
+        // 随机排序 
+        randomSort.onclick = function () {
+            shopInfo.sort(function (a, b) { return Math.random() - 0.5 })
+            oUl.innerHTML = ''
+            $mount()
+        }
+
+
+        // 从小到大
+        minMax.onclick = function () {
+            shopInfo.sort(function (a, b) { return a.price - b.price })
+            // 清除之前存在的 li
+            oUl.innerHTML = ''
+            $mount()
+        }
+
+        // 从大到小
+        maxMin.onclick = function () {
+            shopInfo.sort(function (a, b) { return b.price - a.price })
+            oUl.innerHTML = ''
+            $mount()
+        }
+    </script>
+</body>
+
+</html>
