@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 40px;
+            border: 1px dashed #ccc;
+            margin: 100px auto;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        button {
+            display: block;
+            margin: -80px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <button>生成随机颜色</button>
+
+    <script>
+        var btn = document.querySelector('button')
+        var oBox = document.querySelector('.box')
+
+        function randoColor() {
+            var str = "#"
+            for (var i = 0; i < 6; i++) {
+                str += parseInt(Math.random() * 16).toString(16)
+            }
+            return str
+        }
+
+        btn.onclick = function () {
+            let color = randoColor()
+            oBox.style.backgroundColor = color
+            oBox.innerHTML = color
+        }
+    </script>
+</body>
+
+</html>
