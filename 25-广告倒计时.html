@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .box {
+            margin: 100px auto;
+            width: 400px;
+            height: 300px;
+            background-color: wheat;
+        }
+
+        .top {
+            width: 100%;
+            height: 40px;
+            background-color: orchid;
+            padding: 0 14px;
+            line-height: 40px;
+        }
+
+        .content {
+            width: 100%;
+            height: 220px;
+            padding: 10px 14px;
+        }
+
+        .bottom {
+            line-height: 40px;
+            text-align: center;
+            height: 40px;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="top">
+            标题标题标题标题标题
+        </div>
+        <div class="content">
+            内容内容内容内容内容
+            内容内容内容内容内容
+            内容内容内容内内容容
+            容内容内容内容内容内
+            容内容内容内容内容内
+            容内容内容内容内容内
+
+        </div>
+        <div class="bottom">
+            <span class="sec"></span>秒后自动关闭
+        </div>
+    </div>
+    <script>
+        var oBox = document.querySelector('.box')
+        var sec = document.querySelector('.sec')
+        var time = 5
+
+        sec.innerHTML = time
+        setInterval(() => {
+            time-- == 0 ? oBox.remove() : sec.innerHTML = time
+        }, 1000);
+    </script>
+</body>
+
+</html>

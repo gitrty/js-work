@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .day {
+            font-size: 24px;
+            color: #f00;
+            letter-spacing: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="root">
+        距离元旦还有<span class="day"></span>
+    </div>
+    <script>
+        var oDay = document.querySelector('.day')
+        // 获取元旦的时间戳
+        var newDate = new Date("2020-1-1 00:00:00").getTime()
+
+        function getValue() {
+            // 获取当前时间的时间戳
+            var nowDate = new Date().getTime()
+            // 时间差
+            var dValue = newDate - nowDate
+
+            // 天
+            var day = parseInt(dValue / 1000 / 60 / 60 / 24)
+            // 小时
+            var hour = parseInt(dValue / 1000 / 60 / 60 % 24)
+            // 分钟
+            var mins = parseInt(dValue / 1000 / 60 % 60)
+            // 秒
+            var seconds = parseInt(dValue / 1000 % 60)
+
+            var timer = day + "天" + hour + "小时" + mins + "分钟" + seconds + "秒"
+            oDay.innerHTML = timer
+        }
+
+
+        setInterval(getValue, 1000);
+    </script>
+</body>
+
+</html>
