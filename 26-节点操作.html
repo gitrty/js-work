@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>hello world~!!</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        body {
+            font: 16px/1.5 'Microsoft Yahei';
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        #wrap {
+            height: 580px;
+            background: linear-gradient(180deg, #8CC1DE, #F9A886);
+            overflow: hidden;
+        }
+
+        #wrap .container {
+            width: 800px;
+            margin: 50px auto;
+        }
+
+        #wrap .container .target {
+            width: 50%;
+            background-color: #fff;
+            line-height: 2;
+            min-height: 550px;
+        }
+
+        #wrap .container .target p {
+            margin: 50px 20px 0;
+            color: #F9A886;
+        }
+
+        #wrap .container .target a {
+            background-color: #fff;
+            text-decoration: none;
+            color: #000;
+        }
+
+        #wrap .container .target a:hover {
+            color: red;
+        }
+
+        #wrap .container .target ol li {
+            list-style: none;
+            font-style: normal;
+            display: inline-block;
+            margin: 10px 0 0 20px;
+            padding: 0 5px;
+            color: #999;
+            border: 1px solid #ccc;
+
+        }
+
+        #wrap .container .target ol li:hover i {
+            color: red;
+            cursor: pointer;
+
+        }
+
+        #wrap .container .target ol li span {
+            padding-right: 5px;
+        }
+
+        #wrap .container .target ol li i {
+            padding: 0 5px;
+            border-left: 1px solid #ccc;
+
+        }
+
+        #wrap .container .show {
+            width: 50%;
+            min-height: 550px;
+            background-color: rgba(0, 0, 0, 0.5);
+
+        }
+
+        #wrap .container .show ul {
+            margin-top: 50px;
+
+        }
+
+        #wrap .container .show ul li {
+            list-style: none;
+            font-style: normal;
+            display: inline-block;
+            margin: 20px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="container clearfix">
+            <div class="target fl">
+                <p> 热门目的地：
+                    <a href="javascript:void(0);">马来西亚</a>
+                    <a href="javascript:void(0);">泰国</a>
+                    <a href="javascript:void(0);">三亚</a>
+                    <a href="javascript:void(0);">新西兰</a>
+                    <a href="javascript:void(0);">云南</a>
+                </p>
+                <ol class='clearfix' onselectstart='return false'>
+
+                </ol>
+
+            </div>
+            <div class="show fr">
+                <ul class='clearfix'>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let oAs = document.querySelectorAll('.target>p>a')
+        let oUl = document.querySelector('.show>ul')
+        let oOl = document.querySelector('.container>.target>ol')
+
+        oAs.forEach((el, index) => {
+            // 节流阀 - 控制每个项只出现一次
+            let flag = true
+
+            el.onclick = () => {
+                // 点击之后将flag设为false，下次点击时无法再添加相同项
+                if (!flag) return
+                flag = false
+
+                // 点击后将对应的地方添加到右边
+                let oText = el.innerHTML
+                let newLi = document.createElement('li')
+                newLi.innerHTML = oText
+                oUl.appendChild(newLi)
+
+                // 创建一个点击删除的×
+                let newA = document.createElement('a')
+                newA.innerHTML = "×"
+
+                // clone一份添加到下面
+                let newLi2 = newLi.cloneNode(true)
+                newLi2.innerHTML += "丨"
+                newLi2.appendChild(newA)
+                oOl.appendChild(newLi2)
+
+                // 点击×删除对应的项
+                newA.onclick = () => {
+                    // 删除某项时将flag设为true，下次点击对应项时可以进行添加
+                    flag = true
+
+                    newLi.remove()
+                    newLi2.remove()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

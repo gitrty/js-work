@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            .clearfix:after{
+                content: "";
+                display: block;
+                height: 0;
+                clear:both;
+                visibility: hidden;
+            }
+            .clearfix{
+                *zoom: 1;/*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+            }
+            .box{
+                width: 400px;
+                border: 1px solid #ccc;
+                clear: both;
+                padding-bottom: 10px;
+            }
+            .box div{
+                margin-top:10px ;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="box clearfix"></div>
+        <script>
+            let oBox = document.querySelector('.box')
+            // 获取大盒子的宽度
+            let maxWidth = oBox.clientWidth
+            console.info(maxWidth)
+            // 规定每个小盒子的大小(每个盒子占30%)
+            let minWidth = maxWidth*0.3
+            // 规定每个盒子之间的距离
+            let marginL = maxWidth*0.1*0.25
+            // 创建一个小盒子
+            let newBox =document.createElement('div')
+            newBox.style.width = minWidth +"px"
+            newBox.style.height = minWidth + "px"
+            newBox.style.marginLeft = marginL + "px"
+            newBox.style.backgroundColor = 'pink'
+            newBox.style.float = 'left'
+            // 模拟后台获取到的数据 ->  规定小盒子的数量
+            let arrInfo = [
+                    {id:1,src:"./"},
+                    {id:2,src:"./"},
+                    {id:3,src:"./"},
+                    {id:4,src:"./"},
+                    {id:5,src:"./"},
+                    {id:6,src:"./"},
+                    {id:7,src:"./"},
+                    {id:7,src:"./"},
+                    {id:7,src:"./"},
+                    {id:7,src:"./"},
+                    {id:7,src:"./"},
+                ]
+            // 将数据渲染到页面
+            arrInfo.forEach(item=>{
+                let cloneBox = newBox.cloneNode(true)
+                oBox.appendChild(cloneBox)
+            })
+    </script>
+    </body>
+</html>
