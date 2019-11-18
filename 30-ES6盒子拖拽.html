@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 200px;
+            height: 200px;
+            background-color: indianred;
+        }
+
+        .box2 {
+            position: absolute;
+            top: 200px;
+            left: 0;
+
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+    <div class="box2">
+
+    </div>
+    <script>
+
+        class BoxDrag {
+            init(el) {
+                this.oBox = document.querySelector(el)
+                this.dragDown()
+            }
+            // 鼠标按下
+            dragDown() {
+                this.oBox.onmousedown = ev => {
+                    ev = ev || window.event
+                    let disX = ev.pageX - this.oBox.offsetLeft
+                    let disY = ev.pageY - this.oBox.offsetTop
+                    this.dragMove(disX, disY)
+                    this.dragUp()
+                }
+            }
+            // 鼠标移动
+            dragMove(disX, disY) {
+                document.onmousemove = ev => {
+                    ev = ev || window.event
+                    this.oBox.style.left = ev.pageX - disX + 'px'
+                    this.oBox.style.top = ev.pageY - disY + 'px'
+                }
+            }
+            // 鼠标松开
+            dragUp() {
+                document.onmouseup = () => {
+                    document.onmousemove = document.onmouseup = null
+                }
+            }
+        }
+
+        new BoxDrag().init('.box')
+        new BoxDrag().init('.box2')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 200px;
+            height: 200px;
+            background-color: indianred;
+        }
+
+        .box2 {
+            position: absolute;
+            top: 200px;
+            left: 0;
+
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+    <div class="box2">
+
+    </div>
+    <script>
+        let oBox = document.querySelector('.box')
+        let oBox2 = document.querySelector('.box2')
+
+        oBox.onmousedown = ev => {
+            ev = ev || window.event
+            let disX = ev.pageX - oBox.offsetLeft
+            let disY = ev.pageY - oBox.offsetTop
+            document.onmousemove = ev => {
+                ev = ev || window.event
+                oBox.style.left = ev.pageX - disX + 'px'
+                oBox.style.top = ev.pageY - disY + 'px'
+            }
+            document.onmouseup = () => {
+                document.onmousemove = document.onmouseup = null
+            }
+        }
+        oBox2.onmousedown = ev => {
+            ev = ev || window.event
+            let disX = ev.pageX - oBox2.offsetLeft
+            let disY = ev.pageY - oBox2.offsetTop
+            document.onmousemove = ev => {
+                ev = ev || window.event
+                oBox2.style.left = ev.pageX - disX + 'px'
+                oBox2.style.top = ev.pageY - disY + 'px'
+            }
+            document.onmouseup = () => {
+                document.onmousemove = document.onmouseup = null
+            }
+        }
+    </script>
+</body>
+
+</html>
