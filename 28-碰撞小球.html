@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body {
+            font-family: "Microsoft YaHei", serif;
+        }
+
+        body,
+        dl,
+        dd,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+        }
+
+        ol,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        img {
+            border: none;
+        }
+
+        /* 小球样式 */
+        #wrap {
+            position: absolute;
+            z-index: 1;
+            left: 100px;
+            top: 100px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(#fff 0%, #f00 100%);
+        }
+
+        #shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 尾巴样式 */
+        #shadow p {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background-color: pink;
+            transform-origin: center center;
+            transform: scale(1);
+            border-radius: 50%;
+            transition: all .8s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <div id="shadow"></div>
+
+    <script>
+        let wrap = document.querySelector('#wrap')
+        let shadow = document.querySelector('#shadow')
+
+        // 设置运算速度
+        let disX = 10
+        let disY = 10
+
+        // 获取可视区域大小
+        let oWidth = document.documentElement.clientWidth
+        let oHeight = document.documentElement.clientHeight
+
+        // 窗口改变时重新获取可视区大小
+        window.onresize = () => {
+            oWidth = document.documentElement.clientWidth
+            oHeight = document.documentElement.clientHeight
+        }
+
+        // 运动函数
+        function animate() {
+
+            // 获取小球自身的宽高
+            let wrapWidth = wrap.offsetWidth
+            let wrapHeight = wrap.offsetHeight
+
+            // 获取小球的当前位置
+            let wrapL = wrap.offsetLeft
+            let wrapT = wrap.offsetTop
+
+            // 判断小球是否碰撞边缘
+            // 碰撞右边
+            if (wrapL + wrapWidth >= oWidth) {
+                // 超出最大值时，速度取反，并将最大值设置为最大
+                disX = -disX
+                wrapL = oWidth - wrapWidth
+            }
+            // 碰撞下边
+            if (wrapT + wrapHeight >= oHeight) {
+                disY = -disY
+                wrapT = oHeight - wrapHeight
+            }
+            // 碰撞左边
+            if (wrapL <= 0) {
+                // 超出最小值时，速度取反，并将最小值设置为0
+                disX = -disX
+                wrapL = 0
+            }
+            // 碰撞上边
+            if (wrapT <= 0) {
+                disY = -disY
+                wrapT = 0
+            }
+            wrap.style.left = wrapL + disX + "px"
+            wrap.style.top = wrapT + disY + "px"
+
+            createShadow(wrapL, wrapT)
+
+            //使用requestAnimationFrame完成动画
+            requestAnimationFrame(animate)
+        }
+        animate()
+
+        // 创建尾巴
+        function createShadow(left, top) {
+            let oP = document.createElement('p')
+            // css中设置了尾巴的初始大小为36px,小球的初始大小为50px -> +7即可将尾巴的偏移到小球中心
+            oP.style.left = left + 7 + 'px'
+            oP.style.top = top + 7 + 'px'
+            setTimeout(() => {
+                oP.style.transform = "scale(0.3)";
+                oP.style.opacity = "0";
+            })
+            // css中设置了transition的时间为 .8s ，所以 0.8s 后删除尾巴
+            setTimeout(() => { oP.remove() }, 800);
+
+            shadow.appendChild(oP)
+        }
+    </script>
+
+
+</body>
+
+</html>
