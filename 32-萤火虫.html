@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: url("./img/bg.jpg") no-repeat;
+            background-size: cover;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <script>
+
+        // 生成随机位置
+        function randomPosition() {
+            let randomObj = {
+                top: parseInt(document.documentElement.clientHeight * Math.random()),
+                left: parseInt(document.documentElement.clientWidth * Math.random())
+            }
+            return randomObj
+        }
+
+        function createFire() {
+            // 创建萤火虫
+            let fire = document.createElement('div')
+            fire.style.position = 'absolute'
+            fire.style.left = randomPosition().left + 'px'
+            fire.style.top = randomPosition().top + 'px'
+            fire.style.width = "20px"
+            fire.style.height = "20px"
+            fire.style.background = "url(./img/fire.jpg) no-repeat 0/100%"
+            fire.style.transition = "all .4s"
+            document.body.appendChild(fire)
+
+            // 随机变化位置
+            setInterval(() => {
+                fire.style.left = randomPosition().left + 'px'
+                fire.style.top = randomPosition().top + 'px'
+            }, 1500);
+        }
+
+        setInterval(createFire, 3000);
+
+    </script>
+</body>
+
+</html>

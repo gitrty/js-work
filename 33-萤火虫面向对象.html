@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: url("./img/bg.jpg") no-repeat;
+            background-size: cover;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        // 萤火虫类
+        class FireWorm {
+            // 初始化
+            init() {
+                this.fire = document.createElement('div')
+                this.fire.style.position = 'absolute'
+                this.fire.style.width = '20px'
+                this.fire.style.height = '20px'
+                this.fire.style.background = 'url(./img/fire.jpg) no-repeat 0/100%'
+                this.fire.style.transition = 'all .6s'
+                this.createFire()
+            }
+            // 生成随机位置函数
+            randomPosition() {
+                let randomObj = {
+                    top: parseInt(document.documentElement.clientHeight * Math.random()),
+                    left: parseInt(document.documentElement.clientWidth * Math.random())
+                }
+                return randomObj
+            }
+            // 随机位置创建萤火虫
+            createFire() {
+                let firePosition = this.randomPosition()
+                this.fire.style.top = firePosition.top + 'px'
+                this.fire.style.left = firePosition.left + 'px'
+                document.body.appendChild(this.fire)
+                this.fireMove()
+            }
+            // 萤火虫移动
+            fireMove() {
+                setInterval(() => {
+                    let firePosition = this.randomPosition()
+                    this.fire.style.top = firePosition.top + 'px'
+                    this.fire.style.left = firePosition.left + 'px'
+                }, 1500);
+            }
+        }
+        // 持续创建萤火虫
+        setInterval(() => {
+            new FireWorm().init()
+        }, 3000);
+    </script>
+
+</body>
+
+</html>
