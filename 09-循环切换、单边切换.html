@@ -13,20 +13,19 @@
         }
 
         #banner {
+            position: relative;
             width: 600px;
             border: 1px solid #ccc;
             margin: 50px auto;
-            position: relative;
             height: 375px;
         }
 
         #banner ul li {
-            list-style: none;
             position: absolute;
+            list-style: none;
         }
 
         #banner ul li img {
-            display: block;
             width: 100%;
             display: none;
         }
@@ -50,11 +49,11 @@
 
         #banner a {
             position: absolute;
+            top: 50%;
             text-decoration: none;
             width: 40px;
             color: #fff;
             font-size: 25px;
-            top: 50%;
             margin-top: -15px;
             line-height: 30px;
             text-align: center;
@@ -72,9 +71,9 @@
         }
 
         .btnBar {
+            position: relative;
             width: 600px;
             margin: 50px auto;
-            position: relative;
             text-align: center;
         }
 
@@ -87,6 +86,10 @@
             background-color: red;
             color: #fff;
         }
+
+        #banner ul li img.show {
+            display: block;
+        }
     </style>
 </head>
 
@@ -95,7 +98,7 @@
 
         <ul>
             <li>
-                <img src="img/1.jpg" alt="">
+                <img src="img/1.jpg" alt="" class="show">
             </li>
             <li>
                 <img src="img/2.jpg" alt="">
@@ -110,8 +113,8 @@
                 <img src="img/5.jpg" alt="">
             </li>
         </ul>
-        <p class='top'>eee</p>
-        <p class='bottom'>eee</p>
+        <p class='top'>toptoptop</p>
+        <!-- 左右按钮 -->
         <a class='prev' href="javascript:void(0);">&lt;</a>
         <a class='next' href="javascript:void(0);">&gt;</a>
 
@@ -122,70 +125,67 @@
     </div>
 
     <script>
-        var aBtn = document.getElementsByTagName('a');
-        var aImg = document.getElementsByTagName('img');
-        var aP = document.getElementsByTagName('p');
-        var aPattern = document.getElementsByTagName('button');
-        var arrText = ['植物', '大战', '植物大战', '植物大战僵尸', '植物大战僵尸中文版'];
-        var num = 0;
-        aImg[num].style.display = 'block';
-        var oldImg = aImg[num];
-        var onoff = true;
+        // 1、首先给左右按钮添加点击事件
+        // 2、要控制所有img的显示隐藏，肯定需要先拿到 UL>LI>所有IMG
+        // 3、大家都知道拿到的所有img是一个类数组，数组中的每一项对应着相应的img标签，
+        // 而数组可以通过下标来进行控制，所以我们要控制图片的显示与隐藏，就需要控制数组的下标，
+        // 所以我们需要定义一个变量来表示当前显示的是哪张图片
+        // 4、所以我们就需要在点击按钮时控制index++或index--
 
-        aPattern[0].onclick = function () {
+        let oPrev = document.querySelector('.prev')
+        let oNext = document.querySelector('.next')
+        let oImgs = document.querySelectorAll('#banner>ul>li>img')
+        let oTop = document.querySelector('.top')
+        let btns = document.querySelectorAll('.btnBar>button')
+        let index = 0
+        let isNormal = false
 
-            onoff = true;
-            aPattern[1].className = '';
-            this.className = 'active';
 
-        }
-        aPattern[1].onclick = function () {
-            onoff = false;
-
-            aPattern[0].className = '';
-            this.className = 'active';
-
-        }
-
-        aBtn[0].onclick = function () {
-            num--;
-            if (num < 0) {
-                if (onoff) {
-                    num = 0;
-                } else {
-                    num = 4;
-                }
-
+        // 左按钮
+        oPrev.onclick = function () {
+            index--
+            if (index < 0) {
+                isNormal ? index = 0 : index = 4
             }
-            oldImg.style.display = 'none';
-            aImg[num].style.display = 'block';
-            oldImg = aImg[num];
-            aP[0].innerHTML = num + 1 + '/' + 5;
-            aP[1].innerHTML = arrText[num];
-
+            // 控制图片的显示与隐藏
+            oImgs[index].classList.add('show')
+            // 控制两种模式分别该删除的项
+            index === 4 ? oImgs[0].classList.remove('show') : oImgs[index + 1].classList.remove('show')
+            tabTop()
         }
-        aBtn[1].onclick = function () {
-            num++;
-            if (num > 4) {
-                if (onoff) {
-                    num = 4;
-                } else {
-                    num = 0;
-                }
 
+        // 右按钮
+        oNext.onclick = function () {
+            index++
+            if (index > 4) {
+                isNormal ? index = 4 : index = 0
             }
-            oldImg.style.display = 'none';
-            aImg[num].style.display = 'block';
-            oldImg = aImg[num];
-            aP[0].innerHTML = num + 1 + '/' + 5;
-            aP[1].innerHTML = arrText[num];
-
+            // 控制图片的显示与隐藏
+            oImgs[index].classList.add('show')
+            // 控制两种模式分别该删除的项
+            index === 0 ? oImgs[4].classList.remove('show') : oImgs[index - 1].classList.remove('show')
+            tabTop()
         }
 
+        // 显示当前是第几张/总张
+        function tabTop() {
+            oTop.innerHTML = index + 1 + "/5"
+        }
+        tabTop()
 
-
-
-
+        // 模式切换
+        // 正常模式
+        btns[0].onclick = function () {
+            isNormal = true
+            this.classList.add('active')
+            btns[1].classList.remove('active')
+        }
+        // 循环模式
+        btns[1].onclick = function () {
+            isNormal = false
+            this.classList.add('active')
+            btns[0].classList.remove('active')
+        }
     </script>
 </body>
 
