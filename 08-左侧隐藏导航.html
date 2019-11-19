@@ -14,19 +14,20 @@
         }
 
         #Logo {
-            width: 50px;
-            height: 100%;
             position: absolute;
             left: 0px;
             top: 0px;
+            width: 50px;
+            height: 100%;
         }
 
         #Menu {
             position: absolute;
-            height: 100%;
             left: -50px;
             top: 0px;
+            height: 100%;
             background: #666;
+            transition: all .3s;
         }
 
         #Menu ul {
@@ -36,20 +37,21 @@
         }
 
         #Menu ul li {
+            position: relative;
             height: 36px;
             width: 50px;
             margin: 20px 0px;
             padding: 7px 0px;
             text-align: center;
-            position: relative;
         }
 
-        #Logo p.but {
+        #Logo p.btn {
+            position: absolute;
+            bottom: 50px;
             background: url("img/icon.png") 0px -60px;
             width: 50px;
             height: 50px;
-            bottom: 50px;
-            position: absolute;
+            cursor: pointer;
         }
 
         #Menu ul li.bg {
@@ -57,14 +59,14 @@
         }
 
         #Menu ul li .con {
-            width: 200px;
-            height: 180px;
-            border: 1px solid #666;
+            display: none;
             position: absolute;
             left: 50px;
             top: -1px;
+            width: 200px;
+            height: 180px;
+            border: 1px solid #666;
             border-left: 0px;
-            display: none;
             background: #ffffcc;
         }
     </style>
@@ -97,48 +99,23 @@
             </ul>
 
         </div>
-        <p class="but"></p>
+        <p class="btn"></p>
     </div>
 
-    <script type="text/javascript">
-        var oMenu = document.getElementById("Menu");
-        var oLogo = document.getElementById("Logo");
-        var oLi = oMenu.getElementsByTagName("li");
-        var oBut = oLogo.getElementsByTagName("p")[0];
-        var oDiv = oMenu.getElementsByTagName("div");
-
-        var len = oLi.length;
-        var tag = true; //如果没有条件，添加条件
-
-        //点击按扭操作事件
-        oBut.onclick = function () {
-            if (tag) {
-                this.style.backgroundPosition = "0px 0px";
-                oMenu.style.left = "0px";
-                tag = false;
+    <script>
+        let oBtn = document.querySelector('.btn')
+        let oMenu = document.querySelector('#Menu')
+        let isShow = true
+        oBtn.onclick = function () {
+            if (isShow) {
+                oMenu.style.left = 0
+                oBtn.style.backgroundPosition = "0px 0px"
             } else {
-                this.style.backgroundPosition = "0px -60px";
-                oMenu.style.left = "-50px";
-                tag = true;
+                oMenu.style.left = "-50px"
+                oBtn.style.backgroundPosition = "0px -60px"
             }
+            isShow = !isShow
         }
-
-        //鼠标滑动事件，显示和隐藏div内容
-        for (var i = 0; i < len; i++) {
-            oLi[i].index = i;
-            oLi[i].onmouseover = function () {
-                oDiv[this.index].style.display = "block";
-                this.className = "bg";
-            }
-
-            oLi[i].onmouseout = function () {
-                oDiv[this.index].style.display = "none";
-                this.className = "";
-            }
-        }
-
-
-
     </script>
 </body>
 
