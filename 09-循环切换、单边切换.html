@@ -125,13 +125,6 @@
     </div>
 
     <script>
-        // 1、首先给左右按钮添加点击事件
-        // 2、要控制所有img的显示隐藏，肯定需要先拿到 UL>LI>所有IMG
-        // 3、大家都知道拿到的所有img是一个类数组，数组中的每一项对应着相应的img标签，
-        // 而数组可以通过下标来进行控制，所以我们要控制图片的显示与隐藏，就需要控制数组的下标，
-        // 所以我们需要定义一个变量来表示当前显示的是哪张图片
-        // 4、所以我们就需要在点击按钮时控制index++或index--
-
         let oPrev = document.querySelector('.prev')
         let oNext = document.querySelector('.next')
         let oImgs = document.querySelectorAll('#banner>ul>li>img')
