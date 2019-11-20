@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/cookie.tool.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        .box {
+            width: 420px;
+            height: 320px;
+            background-color: skyblue;
+            margin: 30px auto;
+        }
+
+        .top {
+            font-size: 18px;
+            color: #fff;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 900;
+            background-color: #09c;
+        }
+
+        .box input {
+            display: block;
+            width: 270px;
+            height: 40px;
+            margin: 0 auto;
+            text-indent: 15px;
+            border: 1px solid #ccc;
+            margin-top: 34px;
+        }
+
+        .box input[type=submit] {
+            display: block;
+            width: 270px;
+            height: 40px;
+            margin: 0 auto;
+            text-indent: 15px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            background-color: #09c;
+            color: #fff;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        .box input[type=checkbox] {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-top: 0px;
+            margin-left: 75px;
+        }
+
+        .check {
+            padding-top: 10px;
+        }
+
+        .check span {
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .box li {
+            position: relative;
+        }
+
+        .box li p {
+            position: absolute;
+            margin-left: 76px;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .box li p.default {
+            color: #777;
+        }
+
+        .box li p.success {
+            color: #58bc58;
+        }
+
+        .box li p.error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="box">
+        <div class="top">登录</div>
+        <li>
+            <input type="text" placeholder="请输入用户名">
+        </li>
+        <li>
+            <input type="password" placeholder="请输入密码">
+        </li>
+        <li class="check">
+            <input type="checkbox" checked><span>记住密码</span>
+        </li>
+        <li><input type="submit" value="登录"></li>
+    </ul>
+    <script>
+        let userInfo = JSON.parse(getCookie('userInfo') || '[]')
+        let oInputs = document.querySelectorAll('.box>li>input')
+        // console.info(userInfo)
+
+        // 登录验证
+        oInputs[3].onclick = () => {
+            // 获取到输入的用户名和密码
+            let name = oInputs[0].value
+            let pwd = oInputs[1].value
+
+            // 获取是否记住密码
+            let isRemember = oInputs[2].checked
+
+            // 根据cookie中存储的用户数据进行比较
+            userInfo.forEach((item, index) => {
+                // 判断用户名是否存在
+                if (item.uName != name) {
+                    index == userInfo.length - 1 ? console.info('用户名不存在') : 0
+                    return
+                }
+                // 判断密码是否正确
+                if (item.uPwd == pwd) {
+                    console.info('登录成功')
+
+                    // 判断是否记住密码(记住密码即将用户名和密码存储到cookie中，不记住则清除该cookie)
+                    isRemember ?
+                        setCookie('rememberUser', JSON.stringify({ uName: name, uPwd: pwd }), 1) :
+                        removeCookie('rememberUser')
+                    return
+                }
+                console.info('密码错误')
+            })
+        }
+
+
+        // 进入页面时从cookie中查看上次登录时 是否记住密码
+        let rememberUser = JSON.parse(getCookie('rememberUser') || '{}')
+        // console.info(rememberUser)
+        if (rememberUser.uName) {
+            oInputs[0].value = rememberUser.uName
+            oInputs[1].value = rememberUser.uPwd
+        }
+
+    </script>
+</body>
+
+</html>
