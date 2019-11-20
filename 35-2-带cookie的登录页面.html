@@ -99,6 +99,12 @@
         .box li p.error {
             color: #ff0000;
         }
+
+        .goReg {
+            font-size: 14px;
+            margin-left: 78px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -116,6 +122,7 @@
             <input type="checkbox" checked><span>记住密码</span>
         </li>
         <li><input type="submit" value="登录"></li>
+        <li class="goReg">没有账号？去<a href="./35-1-带cookie的注册页面.html">注册</a></li>
     </ul>
     <script>
         let userInfo = JSON.parse(getCookie('userInfo') || '[]')

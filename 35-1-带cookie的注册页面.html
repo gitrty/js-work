@@ -82,6 +82,11 @@
         .box li p.error {
             color: #ff0000;
         }
+        .goLogin{
+            font-size: 14px;
+            margin-left: 78px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -105,6 +110,7 @@
             <p class="default"></p>
         </li>
         <li><input type="submit" value="提交"></li>
+        <li class="goLogin">已有账号？去<a href="./35-2-带cookie的登录页面.html">登录</a></li>
 
     </ul>
     <script>
@@ -275,7 +281,7 @@
         }
         // 进入页面时获取cookie
         let userInfo = JSON.parse(getCookie('userInfo') || '[]')
-        console.info(userInfo)
+        // console.info(userInfo)
     </script>
 </body>
 
