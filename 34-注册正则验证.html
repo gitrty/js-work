@@ -95,13 +95,13 @@
             <p class="default">密码为6-20位的任意字符</p>
         </li>
         <li><input type="password" placeholder="请再次输入密码">
-            <p class="default">重复密码错误</p>
+            <p class="default"></p>
         </li>
         <li><input type="text" placeholder="请输入手机号">
-            <p class="default">手机号错误</p>
+            <p class="default"></p>
         </li>
         <li><input type="text" placeholder="请输入邮箱">
-            <p class="default">邮箱错误</p>
+            <p class="default"></p>
         </li>
         <li><input type="submit" value="提交"></li>
 
@@ -110,6 +110,11 @@
         let oInputs = document.querySelectorAll('.box>li>input')
         let oPs = document.querySelectorAll('.box>li>p')
 
+        let isTrue0 = false
+        let isTrue1 = false
+        let isTrue2 = false
+        let isTrue3 = false
+        let isTrue4 = false
 
         // 用户名验证
         oInputs[0].oninput = function () {
@@ -118,53 +123,126 @@
             if (val == '') {
                 oPs[0].innerHTML = "用户名为6-12为的数字、字母、下划线"
                 oPs[0].className = "default"
+                isTrue0 = false
                 return
             }
             // 进行正则验证
             if (/^\w{6,12}$/.test(val)) {
                 oPs[0].className = "success"
                 oPs[0].innerHTML = "用户名可用"
+                isTrue0 = true
                 return
             }
             oPs[0].className = "error"
             oPs[0].innerHTML = '用户名不可用'
+            isTrue0 = false
         }
 
 
         // 密码验证
         oInputs[1].oninput = function () {
             let val = this.value
+
+            // 解决重复密码验证后，再次修改密码验证框后，重复密码不进行验证
+            let newVal = oInputs[2].value
+            if (newVal.length < 6) {
+                oPs[2].innerHTML = ''
+                oPs[2].className = 'default'
+                isTrue2 = false
+            } else if (newVal === val) {
+                oPs[2].innerHTML = '两次密码一致'
+                oPs[2].className = 'success'
+                isTrue2 = true
+            } else {
+                oPs[2].innerHTML = '两次密码不一致'
+                oPs[2].className = 'error'
+                isTrue2 = false
+            }
+
+
             if (val == '') {
                 oPs[1].innerHTML = "密码为6-20位的任意字符"
                 oPs[1].className = "default"
+                isTrue1 = false
                 return
             }
             if (/^.{6,20}$/.test(val)) {
                 oPs[1].innerHTML = "密码可用"
                 oPs[1].className = "success"
+                isTrue1 = true
                 return
             }
             oPs[1].className = "error"
             oPs[1].innerHTML = '密码不可用'
+            isTrue1 = false
         }
 
         // 重复密码验证
-        // oInputs[2].oninput = function () {
-        //     let val = this.value
-        //     if (val == '') {
-        //         oPs[2].innerHTML = "密码为6-20位的任意字符"
-        //         oPs[2].className = "default"
-        //         return
-        //     }
-        //     if (/^.{6,20}$/.test(val)) {
-        //         oPs[2].innerHTML = "密码可用"
-        //         oPs[2].className = "success"
-        //         return
-        //     }
-        //     oPs[1].className = "error"
-        //     oPs[1].innerHTML = '密码不可用'
-        // }
+        oInputs[2].oninput = function () {
+            let val = this.value
+            let oldVal = oInputs[1].value
+            if (val.length < 6) {
+                oPs[2].innerHTML = ''
+                oPs[2].className = 'default'
+                isTrue2 = false
+                return
+            }
+            if (val === oldVal) {
+                oPs[2].innerHTML = '两次密码一致'
+                oPs[2].className = 'success'
+                isTrue2 = true
+                return
+            }
+            oPs[2].className = "error"
+            oPs[2].innerHTML = '两次密码不一致'
+            isTrue2 = false
+        }
 
+
+        // 手机号验证
+        oInputs[3].oninput = function () {
+            let val = this.value
+            if (val == '') {
+                oPs[3].innerHTML = ""
+                oPs[3].className = "default"
+                isTrue3 = false
+                return
+            }
+            if (/^1[3456789]\d{9}$/.test(val)) {
+                oPs[3].innerHTML = "手机号可用"
+                oPs[3].className = "success"
+                isTrue3 = true
+                return
+            }
+            oPs[3].className = "error"
+            oPs[3].innerHTML = '手机号不可用'
+            isTrue3 = false
+        }
+
+        // 邮箱验证
+        oInputs[4].oninput = function () {
+            let val = this.value
+            if (val == '') {
+                oPs[4].innerHTML = ""
+                oPs[4].className = "default"
+                isTrue4 = false
+                return
+            }
+            if (/^\w{2,}@[\da-z]{2,}(\.[a-z]{2,6}){1,2}$/i.test(val)) {
+                oPs[4].innerHTML = "邮箱可用"
+                oPs[4].className = "success"
+                isTrue4 = true
+                return
+            }
+            oPs[4].className = "error"
+            oPs[4].innerHTML = '邮箱不可用'
+            isTrue4 = false
+        }
+
+        // 注册
+        oInputs[5].onclick = () => {
+            isTrue0 && isTrue1 && isTrue2 && isTrue3 && isTrue4 ? alert('注册成功') : alert('注册失败')
+        }
     </script>
 </body>
 
