@@ -119,24 +119,20 @@
 
 
     <script>
-        var oNews = document.getElementById("News");
-        var oP = oNews.getElementsByTagName("p")[0];
-        var aSpan = oP.getElementsByTagName("span");
-        var aUl = oNews.getElementsByTagName("ul");
-        var oldIndex = 0;
-        for (var i = 0; i < aSpan.length; i++) {
-            aSpan[i].index = i;
+        var oSpans = document.querySelectorAll('#News>p>span')
+        var oUls = document.querySelectorAll('.con>ul')
 
-            aSpan[i].onmouseover = function () {
-
-                aSpan[oldIndex].className = "";
-                this.className = "active";
-                oldIndex = this.index;
-
-                for (var j = 0; j < aUl.length; j++) {
-                    aUl[j].style.display = "none";
+        for (var i = 0; i < oSpans.length; i++) {
+            oSpans[i].temIndex = i
+            oSpans[i].onmouseenter = function () {
+                // 先把所有的span中的active清除
+                for (var j = 0; j < oSpans.length; j++) {
+                    oSpans[j].classList.remove('active')
+                    oUls[j].style.display = 'none'
                 }
-                aUl[this.index].style.display = "block";
+                // 再给当前的span添加active
+                oSpans[this.temIndex].classList.add('active')
+                oUls[this.temIndex].style.display = 'block'
             }
         }
 

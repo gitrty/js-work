@@ -52,7 +52,7 @@
         var oLis = document.getElementsByTagName("li");
         Array.from(oLis).forEach((val, index) => {
             val.style.backgroundImage = `url(images/${index + 1}.jpg)`;
-            // 鼠标移入改变宽度
+            // 鼠标点击改变宽度
             oLis[index].onclick = ev => {
                 Array.from(oLis).forEach((value, index) => {
                     value.style.width = '100px'

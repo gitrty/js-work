@@ -66,19 +66,18 @@
         </ul>
     </div>
     <script>
-        var oCheck = document.getElementById("check");
-        var oLi = oCheck.getElementsByTagName("li");
-        for (var i = 0; i < oLi.length; i++) {
-            oLi[i].mark = true;
-            oLi[i].onclick = function () {
-                if (this.mark) {
-                    this.className = "ck";
-                } else {
-                    this.className = "";
-                }
-                this.mark = !this.mark;
+
+        // 实现原理：点击li时，切换li的背景图片（切换类名）
+        var oLis = document.querySelectorAll('#check>ul>li')
+        var len = oLis.length
+
+        for (var i = 0; i < len; i++) {
+            oLis[i].temIndex = i
+            oLis[i].onclick = function () {
+                oLis[this.temIndex].classList.toggle('ck')
             }
         }
+
     </script>
 </body>
 

@@ -44,6 +44,7 @@
             cursor: pointer;
         }
 
+        /* 添加类名 on 变为黄星 */
         #box ul li.on {
             background-position: 0px -27px;
         }
@@ -70,49 +71,55 @@
         </ul>
         <p>提示：请认真给当前文章打分</p>
     </div>
+
+
+
+
     <script>
-        var aLi = document.querySelectorAll("#box ul li");
-        var oP = document.querySelector("#box p");
-        var oUl = document.querySelector("#box ul");
-        var length = aLi.length;
-        var showIndex = -1;//代表最终的评分
         var pTxt = ["提示：请认真给当前文章打分", "很差", "较差", "还行", "推荐", "力荐"];
-        oUl.onmouseleave = function () {
-            change(showIndex);
-        };
-        for (var i = 0; i < length; i++) {
-            aLi[i].afei = i;
-            aLi[i].onclick = function () {
-                showIndex = this.afei;//点击之后，让最终评分变为当前序号
-            };
-            aLi[i].onmouseenter = function () {
-                //var index = this.afei;
-                change(this.afei);
-            };
-        }
-        function change(x) {
-            oP.innerHTML = pTxt[x + 1];
-            for (var j = 0; j < length; j++) {
-                aLi[j].className = "";
+
+        var oLis = document.querySelectorAll('#box>ul>li')
+        var oP = document.querySelector('#box>p')
+
+        var index = -1
+
+        for (var i = 0; i < oLis.length; i++) {
+
+            oLis[i].temIndex = i
+
+            // 添加鼠标移入事件
+            oLis[i].onmouseenter = function () {
+                inStar(this.temIndex)
             }
-            for (j = 0; j <= x; j++) {
-                aLi[j].className = "on";
+
+            // 添加鼠标移出事件
+            oLis[i].onmouseleave = function () {
+                inStar(index)
             }
+
+            // 添加鼠标点击事件
+            oLis[i].onclick = function () {
+                index = this.temIndex
+            }
+
         }
 
 
-        //                //改变提示框内容
-        //                oP.innerHTML = pTxt[index+1];
-        //
-        //                //先全部去掉名字
-        //                for (var j = 0; j < length; j++) {
-        //                    aLi[j].className = "";
-        //                }
-        //
-        //                //从第一个当当前这个，都加上 on 名字
-        //                for (j = 0; j <= index; j++) {
-        //                    aLi[j].className = "on";
-        //                }
+        function inStar(a) {
+            // 首先给所有的星星移除类名 on
+            for (var j = 0; j < oLis.length; j++) {
+                oLis[j].classList.remove('on')
+            }
+
+            // 鼠标移出后显示已点击后的评分
+            for (var k = 0; k <= a; k++) {
+                oLis[k].classList.add('on')
+            }
+
+            // 文字框内容切换
+            oP.innerHTML = pTxt[a + 1]
+        }
+
     </script>
 </body>
 
