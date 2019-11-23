@@ -190,12 +190,13 @@ let btns = document.querySelectorAll('.score')
 let diff = document.querySelector('.diff')
 
 // 开始游戏
-btns[0].onclick = () => {
+btns[0].children[1].onclick = () => {
   btns[0].classList.add('hid')
   diff.classList.remove('hid')
 }
+console.info(btns[0])
 // 重新开始
-btns[1].onclick = () => {
+btns[1].children[1].onclick = () => {
   btns[1].classList.add('hid')
   diff.classList.remove('hid')
 }
@@ -210,6 +211,7 @@ diff.children[1].onclick = () => selectDiff(2)
 // 困难
 diff.children[2].onclick = () => selectDiff(3)
 
+// 难度选择函数 （ 1=>简单 ，2=>一般 ，3=>困难 ）
 function selectDiff (item) {
   diff.classList.add('hid')
   new HitPlane(item).init()
