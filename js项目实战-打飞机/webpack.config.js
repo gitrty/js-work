@@ -26,7 +26,7 @@ module.exports = function (env) {
           test: /\.(jpe?g|png|gif|woff|woff2|svg|ttf|eot)$/i, use: {
             loader: 'url-loader',
             options: {
-              outputPath: '/img',
+              outputPath: '/img'
               // limit:4*1024
             }
           }

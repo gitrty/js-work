@@ -46,7 +46,7 @@ class HitPlane {
     plane.classList.add('me')
     plane.style.width = 114 + 'px'
     plane.style.height = 93 + 'px'
-    plane.style.background = `url(./src/img/P1.png) no-repeat`
+    plane.style.background = `url(${require('../img/P1.png')}) no-repeat`
     plane.style.position = 'absolute'
     plane.style.bottom = 0
     plane.style.left = '50%'
@@ -113,7 +113,7 @@ class HitPlane {
     plane.classList.add('enemy')
     plane.style.width = 114 + 'px'
     plane.style.height = 93 + 'px'
-    plane.style.background = `url('./src/img/P.png') -377px 0 no-repeat`
+    plane.style.background = `url(${require('../img/P.png')}) -377px 0 no-repeat`
     plane.style.position = 'absolute'
     plane.style.top = 0 - 93 + 'px'
     plane.style.left = oLeft + 'px'
@@ -189,12 +189,10 @@ let btns = document.querySelectorAll('.score')
 // 难度选择按钮组
 let diff = document.querySelector('.diff')
 
-
 // 开始游戏
 btns[0].onclick = () => {
   btns[0].classList.add('hid')
   diff.classList.remove('hid')
-  // 
 }
 // 重新开始
 btns[1].onclick = () => {
