@@ -158,6 +158,7 @@ class HitPlane {
           if (bulletTop < enemyTop + 93) {
             item1.remove()
             item2.remove()
+            return
           }
         }
       })
@@ -173,7 +174,7 @@ class HitPlane {
 
   // 6、游戏结束
   gameOver () {
-    console.info(1)
+    // console.info('游戏结束')
     clearInterval(window.timer1)
     clearInterval(window.timer2)
     clearInterval(window.timer3)
@@ -181,23 +182,39 @@ class HitPlane {
     clearInterval(window.timer5)
     this.oBox.remove()
     btns[1].classList.remove('hid')
+
+    // 游戏结束后显示分数
+    // console.info(mark)
+    markSlate.classList.remove('hid')
+    markSlate.children[1].innerHTML = mark * 1000
+    // 并清除计分的定时器
+    clearInterval(window.planeMark)
   }
 
 }
-// 开始和重新开始按钮
+// 开始和重新开始
 let btns = document.querySelectorAll('.score')
 // 难度选择按钮组
 let diff = document.querySelector('.diff')
+// 分数记录板
+let markSlate = document.querySelector('.mark')
+// 分数记录(根据时间记录分数)
+let mark = 0
 
 // 开始游戏
-btns[0].children[1].onclick = () => {
-  btns[0].classList.add('hid')
-  diff.classList.remove('hid')
-}
-console.info(btns[0])
+btns[0].children[1].onclick = () => takeMark(true)
+
 // 重新开始
-btns[1].children[1].onclick = () => {
-  btns[1].classList.add('hid')
+btns[1].children[1].onclick = () => takeMark(false)
+
+// 开始/重新开始函数(以及分数记录)
+function takeMark (isFlag) {
+  mark = 0
+  window.planeMark = setInterval(() => {
+    console.info(mark)
+    mark++
+  }, 1000)
+  isFlag ? btns[0].classList.add('hid') : btns[1].classList.add('hid')
   diff.classList.remove('hid')
 }
 
@@ -215,4 +232,9 @@ diff.children[2].onclick = () => selectDiff(3)
 function selectDiff (item) {
   diff.classList.add('hid')
   new HitPlane(item).init()
+}
+
+// 计分板
+markSlate.children[2].onclick = () => {
+  markSlate.classList.add('hid')
 }
