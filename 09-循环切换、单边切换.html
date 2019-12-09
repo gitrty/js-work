@@ -1,186 +1,182 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="Author" content="Fly">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="Author" content="Fly" />
     <title>循环切换 单边切换</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: Microsoft yahei, serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: Microsoft yahei, serif;
+      }
 
-        #banner {
-            position: relative;
-            width: 600px;
-            border: 1px solid #ccc;
-            margin: 50px auto;
-            height: 375px;
-        }
+      #banner {
+        position: relative;
+        width: 600px;
+        border: 1px solid #ccc;
+        margin: 50px auto;
+        height: 375px;
+      }
 
-        #banner ul li {
-            position: absolute;
-            list-style: none;
-        }
+      #banner ul li {
+        position: absolute;
+        list-style: none;
+      }
 
-        #banner ul li img {
-            width: 100%;
-            display: none;
-        }
+      #banner ul li img {
+        width: 100%;
+        display: none;
+      }
 
-        #banner p {
-            position: absolute;
-            width: 100%;
-            line-height: 25px;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-        }
+      #banner p {
+        position: absolute;
+        width: 100%;
+        line-height: 25px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+      }
 
-        #banner p.top {
-            top: 0;
-        }
+      #banner p.top {
+        top: 0;
+      }
 
-        #banner p.bottom {
-            bottom: 0;
-        }
+      #banner p.bottom {
+        bottom: 0;
+      }
 
-        #banner a {
-            position: absolute;
-            top: 50%;
-            text-decoration: none;
-            width: 40px;
-            color: #fff;
-            font-size: 25px;
-            margin-top: -15px;
-            line-height: 30px;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
+      #banner a {
+        position: absolute;
+        top: 50%;
+        text-decoration: none;
+        width: 40px;
+        color: #fff;
+        font-size: 25px;
+        margin-top: -15px;
+        line-height: 30px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
 
-        #banner a.prev {
-            left: 0;
+      #banner a.prev {
+        left: 0;
+      }
 
-        }
+      #banner a.next {
+        right: 0;
+      }
 
-        #banner a.next {
-            right: 0;
+      .btnBar {
+        position: relative;
+        width: 600px;
+        margin: 50px auto;
+        text-align: center;
+      }
 
-        }
+      .btnBar button {
+        padding: 10px;
+        background-color: #ccc;
+      }
 
-        .btnBar {
-            position: relative;
-            width: 600px;
-            margin: 50px auto;
-            text-align: center;
-        }
+      .btnBar button.active {
+        background-color: red;
+        color: #fff;
+      }
 
-        .btnBar button {
-            padding: 10px;
-            background-color: #ccc;
-        }
-
-        .btnBar button.active {
-            background-color: red;
-            color: #fff;
-        }
-
-        #banner ul li img.show {
-            display: block;
-        }
+      #banner ul li img.show {
+        display: block;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="banner">
-
-        <ul>
-            <li>
-                <img src="img/1.jpg" alt="" class="show">
-            </li>
-            <li>
-                <img src="img/2.jpg" alt="">
-            </li>
-            <li>
-                <img src="img/3.jpg" alt="">
-            </li>
-            <li>
-                <img src="img/4.jpg" alt="">
-            </li>
-            <li>
-                <img src="img/5.jpg" alt="">
-            </li>
-        </ul>
-        <p class='top'>toptoptop</p>
-        <!-- 左右按钮 -->
-        <a class='prev' href="javascript:void(0);">&lt;</a>
-        <a class='next' href="javascript:void(0);">&gt;</a>
-
+      <ul>
+        <li>
+          <img src="img/1.jpg" alt="" class="show" />
+        </li>
+        <li>
+          <img src="img/2.jpg" alt="" />
+        </li>
+        <li>
+          <img src="img/3.jpg" alt="" />
+        </li>
+        <li>
+          <img src="img/4.jpg" alt="" />
+        </li>
+        <li>
+          <img src="img/5.jpg" alt="" />
+        </li>
+      </ul>
+      <p class="top">toptoptop</p>
+      <!-- 左右按钮 -->
+      <a class="prev" href="javascript:void(0);">&lt;</a>
+      <a class="next" href="javascript:void(0);">&gt;</a>
     </div>
     <div class="btnBar">
-        <button class='active'>正常模式</button>
-        <button>循环模式</button>
+      <button class="active">正常模式</button>
+      <button>循环模式</button>
     </div>
 
     <script>
-        
-        let oPrev = document.querySelector('.prev')
-        let oNext = document.querySelector('.next')
-        let oImgs = document.querySelectorAll('#banner>ul>li>img')
-        let oTop = document.querySelector('.top')
-        let btns = document.querySelectorAll('.btnBar>button')
-        let index = 0
-        let isNormal = true
+      let oPrev = document.querySelector('.prev')
+      let oNext = document.querySelector('.next')
+      let oImgs = document.querySelectorAll('#banner>ul>li>img')
+      let oTop = document.querySelector('.top')
+      let btns = document.querySelectorAll('.btnBar>button')
+      let index = 0
+      let isNormal = true
 
-
-        // 左按钮
-        oPrev.onclick = function () {
-            index--
-            if (index < 0) {
-                isNormal ? index = 0 : index = 4
-            }
-            // 控制图片的显示与隐藏
-            oImgs[index].classList.add('show')
-            // 控制两种模式分别该删除的项
-            index === 4 ? oImgs[0].classList.remove('show') : oImgs[index + 1].classList.remove('show')
-            tabTop()
+      // 右按钮
+      oNext.onclick = function() {
+        index++
+        if (index > 4) {
+          isNormal ? (index = 4) : (index = 0)
         }
-
-        // 右按钮
-        oNext.onclick = function () {
-            index++
-            if (index > 4) {
-                isNormal ? index = 4 : index = 0
-            }
-            // 控制图片的显示与隐藏
-            oImgs[index].classList.add('show')
-            // 控制两种模式分别该删除的项
-            index === 0 ? oImgs[4].classList.remove('show') : oImgs[index - 1].classList.remove('show')
-            tabTop()
-        }
-
-        // 显示当前是第几张/总张
-        function tabTop() {
-            oTop.innerHTML = index + 1 + "/5"
-        }
+        // 控制图片的显示与隐藏
+        oImgs[index].classList.add('show')
+        // 控制两种模式分别该删除的项
+        index === 0
+          ? oImgs[4].classList.remove('show')
+          : oImgs[index - 1].classList.remove('show')
         tabTop()
+      }
 
-        // 模式切换
-        // 正常模式
-        btns[0].onclick = function () {
-            isNormal = true
-            this.classList.add('active')
-            btns[1].classList.remove('active')
+      // 左按钮
+      oPrev.onclick = function() {
+        index--
+        if (index < 0) {
+          isNormal ? (index = 0) : (index = 4)
         }
-        // 循环模式
-        btns[1].onclick = function () {
-            isNormal = false
-            this.classList.add('active')
-            btns[0].classList.remove('active')
-        }
+        // 控制图片的显示与隐藏
+        oImgs[index].classList.add('show')
+        // 控制两种模式分别该删除的项
+        index === 4
+          ? oImgs[0].classList.remove('show')
+          : oImgs[index + 1].classList.remove('show')
+        tabTop()
+      }
+
+      // 显示当前是第几张/总张
+      function tabTop() {
+        oTop.innerHTML = index + 1 + '/5'
+      }
+      tabTop()
+
+      // 模式切换
+      // 正常模式
+      btns[0].onclick = function() {
+        isNormal = true
+        this.classList.add('active')
+        btns[1].classList.remove('active')
+      }
+      // 循环模式
+      btns[1].onclick = function() {
+        isNormal = false
+        this.classList.add('active')
+        btns[0].classList.remove('active')
+      }
     </script>
-</body>
-
+  </body>
 </html>

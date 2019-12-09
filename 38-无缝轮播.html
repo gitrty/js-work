@@ -169,15 +169,20 @@
 
       let index = 0
 
+      // 克隆图片 1 和 5 分别添加到最后和开头
       let newLi1 = imgUl.children[0].cloneNode(true)
       let newLi2 = imgUl.children[imgUl.children.length - 1].cloneNode(true)
       imgUl.appendChild(newLi1)
       imgUl.insertBefore(newLi2, imgUl.children[0])
+      // 设置页面开始时处于第一张的位置
       imgUl.style.transform = 'translateX(' + -780 + 'px)'
-      // 自动轮播
+
+      // 自动轮播（无缝模式）
       function autoPlay(isAdd) {
+        // 设置css3动画过渡（防止setTimeout中清除transition导致的bug）
         imgUl.style.transition = 'all .4s'
         // 图片轮播
+        // 自动轮播、右按钮点击保证无缝
         if (isAdd) {
           if (index === 0) {
             imgUl.style.transform = 'translateX(' + -6 * 780 + 'px)'
@@ -188,8 +193,10 @@
           } else {
             imgUl.style.transform = 'translateX(' + (-index - 1) * 780 + 'px)'
           }
+          // 点击tab栏 时正常切换
         } else if (isAdd === undefined) {
           imgUl.style.transform = 'translateX(' + (-index - 1) * 780 + 'px)'
+          // 点击左按钮时保证无缝
         } else {
           if (index === 4) {
             imgUl.style.transform = 'translateX(' + 0 + 'px)'
@@ -225,9 +232,7 @@
       }
 
       // 鼠标移除开启轮播
-      wrap.onmouseleave = function() {
-        createInterval()
-      }
+      wrap.onmouseleave = createInterval
 
       // 左右按钮控制
       // 左
